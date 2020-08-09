@@ -2,7 +2,7 @@ const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 
-const generatePage = require('./src/page-template.js');
+const generatePage = require('./utils/generate-site');
 
 const inquirer = require('inquirer');
 
@@ -56,7 +56,7 @@ function addManager() {
     inquirer.prompt([
         {
             type: 'input',
-            name: 'managerName',
+            name: 'name',
             message: 'What is the name of the Manager? (Required)',
             validate: answer => {
                 if (answer) {
@@ -69,7 +69,7 @@ function addManager() {
         },
         {
             type: 'input',
-            name: 'managerId',
+            name: 'id',
             message: "What is the manager's employee ID? (Required)",
             validate: answer => {
                 if (answer) {
@@ -82,7 +82,7 @@ function addManager() {
         },
         {
             type: 'input',
-            name: 'managerOffice',
+            name: 'office',
             message: "What is the manager's office number? (Required)",
             validate: answer => {
                 if (answer) {
@@ -95,7 +95,7 @@ function addManager() {
         }, 
         {
             type: 'input',
-            name: 'managerEmail',
+            name: 'email',
             message: "What is the manager's email? (Required)",
             // message: () => {return "What is the manager's email?"}
             validate: answer => {
@@ -112,7 +112,7 @@ function addManager() {
     ])
 
     .then(answers => {
-        const manager = new Manager(answers.managerName, answers.managerId, answers.managerOffice, answers.managerEmail);
+        const manager = new Manager(answers.name, answers.id, answers.office, answers.email);
         team.push(manager);
         addTeam();
     })
@@ -147,7 +147,7 @@ function addEngineer() {
     inquirer.prompt([
         {
             type: 'input',
-            name: 'engineerName',
+            name: 'name',
             message: 'What is the name of the Engineer? (Required)',
             validate: answer => {
                 if (answer) {
@@ -160,7 +160,7 @@ function addEngineer() {
         },
         {
             type: 'input',
-            name: 'engineerId',
+            name: 'id',
             message: "What is the Engineer's employee ID? (Required)",
             validate: answer => {
                 if (answer) {
@@ -173,7 +173,7 @@ function addEngineer() {
         },
         {
             type: 'input',
-            name: 'engineerEmail',
+            name: 'email',
             message: "What is the Engineer's email? (Required)",
             validate: answer => {
                 let passAnswer = answer.match(/\S+@\S+\.\S+/);
@@ -188,7 +188,7 @@ function addEngineer() {
         },
         {
             type: 'input',
-            name: 'engineerGit',
+            name: 'github',
             message: "What is the Engineer's GitHub username? (Required)",
             validate: answer => {
                 if (answer) {
@@ -201,7 +201,7 @@ function addEngineer() {
         }
     ])
     .then(answers => {
-        const engineer = new Engineer(answers.engineerName, answers.engineerId, answers.engineerEmail, answers.engineerGit);
+        const engineer = new Engineer(answers.name, answers.id, answers.email, answers.hithub);
         team.push(engineer);
         addTeam();
     })
@@ -211,7 +211,7 @@ function addIntern() {
     inquirer.prompt([
         {
             type: 'input',
-            name: 'internName',
+            name: 'name',
             message: 'What is the name of the Intern? (Required)',
             validate: answer => {
                 if (answer) {
@@ -225,7 +225,7 @@ function addIntern() {
         },
         {
             type: 'input',
-            name: 'internEmail',
+            name: 'email',
             message: "What is the Intern's email? (Required)",
             validate: answer => {
                 let passAnswer = answer.match(/\S+@\S+\.\S+/);
@@ -240,7 +240,7 @@ function addIntern() {
         },
         {
             type: 'input',
-            name: 'internSchool',
+            name: 'school',
             message: "What is the Intern's school? (Required)",
             validate: answer => {
                 if (answer) {
@@ -253,14 +253,14 @@ function addIntern() {
         }
     ])
     .then(answers => {
-        const intern = new Intern(answers.internName, answers.internEmail, answers.internSchool);
+        const intern = new Intern(answers.name, answers.email, answers.school);
         team.push(intern);
         addTeam();
     })
 };
 
 function generateTeam() {
-    fs.writeFileSync('./dist/index.html', 'UTF-8');
+    fs.writeFileSync('./dist/index.html', generatePage(team), 'UTF-8');
 }
 
 
