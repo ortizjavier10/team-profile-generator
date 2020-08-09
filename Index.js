@@ -96,7 +96,8 @@ function addManager() {
         {
             type: 'input',
             name: 'managerEmail',
-            messsage: "What is the manager's email? (Required)",
+            message: "What is the manager's email? (Required)",
+            // message: () => {return "What is the manager's email?"}
             validate: answer => {
                 let passAnswer = answer.match(/\S+@\S+\.\S+/);
                 if (passAnswer) {
@@ -142,10 +143,6 @@ function addTeam() {
     })
 };
 
-function generateTeam() {
-
-}
-
 function addEngineer() {
     inquirer.prompt([
         {
@@ -177,7 +174,7 @@ function addEngineer() {
         {
             type: 'input',
             name: 'engineerEmail',
-            messsage: "What is the Engineer's email? (Required)",
+            message: "What is the Engineer's email? (Required)",
             validate: answer => {
                 let passAnswer = answer.match(/\S+@\S+\.\S+/);
                 if (passAnswer) {
@@ -229,7 +226,7 @@ function addIntern() {
         {
             type: 'input',
             name: 'internEmail',
-            messsage: "What is the Intern's email? (Required)",
+            message: "What is the Intern's email? (Required)",
             validate: answer => {
                 let passAnswer = answer.match(/\S+@\S+\.\S+/);
                 if (passAnswer) {
@@ -261,5 +258,10 @@ function addIntern() {
         addTeam();
     })
 };
+
+function generateTeam() {
+    fs.writeFileSync('./dist/index.html', 'UTF-8');
+}
+
 
 addManager();
