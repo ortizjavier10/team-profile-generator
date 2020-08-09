@@ -2,13 +2,13 @@ const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 
-
 const generatePage = require('./src/page-template.js');
 
 const inquirer = require('inquirer');
 
 const fs = require('fs');
 
+const team = [];
 
 
 // Employee:
@@ -95,7 +95,7 @@ function addManager() {
         }, 
         {
             type: 'input',
-            name: ' managerEmail',
+            name: 'managerEmail',
             messsage: "What is the manager's email? (Required)",
             validate: answer => {
                 let passAnswer = answer.match(/\S+@\S+\.\S+/);
@@ -109,6 +109,12 @@ function addManager() {
             }
         }
     ])
+
+    .then(answers => {
+        const manager = new Manager(answers.managerName, answers.managerId, answers.managerOffice, answers.managerEmail);
+        team.push(manager);
+        addTeam();
+    })
 };
 
 function addTeam() {
@@ -121,7 +127,24 @@ function addTeam() {
 
         }
     ])
+    .then(chosen => {
+        switch (chosen.teamMember) {
+            case 'Engineer': 
+            addEngineer();
+            break;
+            case 'Intern': 
+            addIntern();
+            break;
+            case 'No Thanks!': 
+            generateTeam();
+            break;
+        }
+    })
 };
+
+function generateTeam() {
+
+}
 
 function addEngineer() {
     inquirer.prompt([
@@ -180,6 +203,11 @@ function addEngineer() {
             }
         }
     ])
+    .then(answers => {
+        const engineer = new Engineer(answers.engineerName, answers.engineerId, answers.engineerEmail, answers.engineerGit);
+        team.push(engineer);
+        addTeam();
+    })
 };
 
 function addIntern() {
@@ -227,4 +255,11 @@ function addIntern() {
             }
         }
     ])
+    .then(answers => {
+        const intern = new Intern(answers.internName, answers.internEmail, answers.internSchool);
+        team.push(intern);
+        addTeam();
+    })
 };
+
+addManager();
