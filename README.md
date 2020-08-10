@@ -27,6 +27,9 @@ Open a terminal window, type in "node index" and answer the questions. Once done
 Here is a sample screenshot:
 <img src="./images/screenshot.PNG" >
 
+Video demonstrating the application:
+https://drive.google.com/file/d/11p0nIRJ4iiRGd3NY0CE5N2I9vUf_wsxT/view
+
 
 ## License
 Team Profile Generator is licensed under the MIT License.
