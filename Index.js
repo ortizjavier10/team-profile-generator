@@ -201,7 +201,7 @@ function addEngineer() {
         }
     ])
     .then(answers => {
-        const engineer = new Engineer(answers.name, answers.id, answers.email, answers.hithub);
+        const engineer = new Engineer(answers.name, answers.id, answers.email, answers.github);
         team.push(engineer);
         addTeam();
     })
@@ -222,6 +222,19 @@ function addIntern() {
                 }
             }
 
+        },
+        {
+            type: 'input',
+            name: 'id',
+            message: "What is the Intern's employee ID? (Required)",
+            validate: answer => {
+                if (answer) {
+                    return true;
+                } else {
+                    console.log("Please enter the Intern's employee ID");
+                    return false;
+                }
+            }
         },
         {
             type: 'input',
@@ -253,7 +266,7 @@ function addIntern() {
         }
     ])
     .then(answers => {
-        const intern = new Intern(answers.name, answers.email, answers.school);
+        const intern = new Intern(answers.name, answers.id, answers.email, answers.school);
         team.push(intern);
         addTeam();
     })

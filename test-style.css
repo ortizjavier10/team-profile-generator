@@ -21,3 +21,9 @@ body {
     flex-flow: row wrap;
     justify-content: center;
 }
+
+.col-12 {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}

@@ -1,8 +1,12 @@
+const Employee = require("../lib/Employee");
 
-function generateManager(manager) {
+function generatePage(team) {
+
+
+    function generateManager(manager) {
         return `
         <div class="container row col-12">
-        <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
+        <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
             <div class="card-header">${manager.getName()}<br><i class="fa fa-coffee"></i> ${manager.getRole()}</div>
             <div class="card-body">
             <h5 class="card-title"></h5>
@@ -14,41 +18,60 @@ function generateManager(manager) {
             </div>
         </div>
         `
-};
+    };
 
-function generateEngineer(engineer) {
+    function generateEngineer(engineer) {
         return `
-        <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
+        <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
         <div class="card-header">${engineer.getName()}<br><i class="fa fa-database"></i> ${engineer.getRole()}</div>
         <div class="card-body">
         <h5 class="card-title"></h5>
         <ul>
             <li>ID: ${engineer.getId()}</li>
             <li>Email: <a href="mailto:${engineer.getEmail()}">${engineer.getEmail()}</a></li>
-            <li>GitHub: <a href="https://github.com/${engineer.getGithub()}">${engineer.getGithub}</a></li>
+            <li>GitHub: <a href="https://github.com/${engineer.getGithub()}">${engineer.getGithub()}</a></li>
         </ul>    
         </div>
     </div>
         `
-};
+    };
 
-function generateIntern(intern) {
+    function generateIntern(intern) {
         return `
-        <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
+        <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
             <div class="card-header">${intern.getName()}<br><i class="fa fa-graduation-cap"></i> ${intern.getRole()}</div>
             <div class="card-body">
             <h5 class="card-title"></h5>
             <ul>
                 <li>ID: ${intern.getId()}</li>
-                <li>Email: <a href="mailto:${intern.getEmail()}">${intern.getEmail()}</a></li>
+                <li>Email: <a href="mailto: '${intern.getEmail()}'">${intern.getEmail()}</a></li>
                 <li>School: ${intern.getSchool()}</li>
             </ul>    
             </div>
         </div>
         `
-};
+    };
 
-function generatePage(team) {
+
+const html = [];
+html.push(team
+    .filter(employee => employee.getRole() === 'Manager')
+    .map(manager => generateManager(manager))
+    );
+html.push(team
+    .filter(employee => employee.getRole() === 'Engineer')
+    .map(engineer => generateEngineer(engineer))
+    .join('')
+    );
+html.push(team
+    .filter(employee => employee.getRole() === 'Intern')
+    .map(intern => generateIntern(intern))
+    .join('')
+    );
+return html.join('');
+}
+
+module.exports = team => {
     return `
     <!DOCTYPE html>
 <html lang="en">
@@ -56,7 +79,7 @@ function generatePage(team) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="test-style.css">
+    <link rel="stylesheet" href="../src/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Team Profile</title>
 </head>
@@ -71,13 +94,11 @@ function generatePage(team) {
     </div>    
     </header>
     <div class="container row col-12">
-        ${generateManager}
-        ${generateEngineer}
-        ${generateIntern}
+        ${generatePage(team)}
     </div>
 </body>
 </html>
     `
 }
 
-module.exports = generatePage();
+// module.exports = generatePage;
