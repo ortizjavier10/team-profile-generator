@@ -44,7 +44,7 @@ function generatePage(team) {
             <h5 class="card-title"></h5>
             <ul>
                 <li>ID: ${intern.getId()}</li>
-                <li>Email: <a href="mailto: '${intern.getEmail()}'">${intern.getEmail()}</a></li>
+                <li>Email: <a href="mailto:${intern.getEmail()}">${intern.getEmail()}</a></li>
                 <li>School: ${intern.getSchool()}</li>
             </ul>    
             </div>
@@ -87,7 +87,7 @@ module.exports = team => {
     <header>
     <div class="container">
         <div class="row">
-            <div class="col-12 bg-info">
+            <div class="col-12 text-white bg-dark">
                 <h1 class="title">My Team</h1>
             </div>  
         </div>
