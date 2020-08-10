@@ -25,7 +25,7 @@ Open a terminal window, type in "node index" and answer the questions. Once done
 
 ## Sample
 Here is a sample screenshot:
-<img src="./images/screenshot.png" >
+<img src="./images/screenshot.PNG" >
 
 
 ## License
